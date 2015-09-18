@@ -1,0 +1,11 @@
+eger.parseInt(Integer.java:454)
+	at java.lang.Integer.parseInt(Integer.java:527)
+	at cn.his.servlet.medicine.dictionary.GetDrugDictionaryServlet.doPost(GetDrugDictionaryServlet.java:129)
+	at cn.his.servlet.medicine.dictionary.GetDrugDictionaryServlet.doGet(GetDrugDictionaryServlet.java:37)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:621)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:728)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:305)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at cn.his.filter.SessionFilter.doFilter(SessionFilter.java:57)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catali

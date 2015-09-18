@@ -1,0 +1,125 @@
+313) &&
+		     (pdev->device != 0x431A))) {
+			b43legacydbg(wl, "Ignoring unconnected 802.11 core\n");
+			return -ENODEV;
+		}
+	}
+
+	wldev = kzalloc(sizeof(*wldev), GFP_KERNEL);
+	if (!wldev)
+		goto out;
+
+	wldev->dev = dev;
+	wldev->wl = wl;
+	b43legacy_set_status(wldev, B43legacy_STAT_UNINIT);
+	wldev->bad_frames_preempt = modparam_bad_frames_preempt;
+	tasklet_init(&wldev->isr_tasklet,
+		     (void (*)(unsigned long))b43legacy_interrupt_tasklet,
+		     (unsigned long)wldev);
+	if (modparam_pio)
+		wldev->__using_pio = 1;
+	INIT_LIST_HEAD(&wldev->list);
+
+	err = b43legacy_wireless_core_attach(wldev);
+	if (err)
+		goto err_kfree_wldev;
+
+	list_add(&wldev->list, &wl->devlist);
+	wl->nr_devs++;
+	ssb_set_drvdata(dev, wldev);
+	b43legacy_debugfs_add_device(wldev);
+out:
+	return err;
+
+err_kfree_wldev:
+	kfree(wldev);
+	return err;
+}
+
+static void b43legacy_sprom_fixup(struct ssb_bus *bus)
+{
+	/* boardflags workarounds */
+	if (bus->boardinfo.vendor == PCI_VENDOR_ID_APPLE &&
+	    bus->boardinfo.type == 0x4E &&
+	    bus->boardinfo.rev > 0x40)
+		bus->sprom.boardflags_lo |= B43legacy_BFL_PACTRL;
+}
+
+static void b43legacy_wireless_exit(struct ssb_device *dev,
+				  struct b43legacy_wl *wl)
+{
+	struct ieee80211_hw *hw = wl->hw;
+
+	ssb_set_devtypedata(dev, NULL);
+	ieee80211_free_hw(hw);
+}
+
+static int b43legacy_wireless_init(struct ssb_device *dev)
+{
+	struct ssb_sprom *sprom = &dev->bus->sprom;
+	struct ieee80211_hw *hw;
+	struct b43legacy_wl *wl;
+	int err = -ENOMEM;
+
+	b43legacy_sprom_fixup(dev->bus);
+
+	hw = ieee80211_alloc_hw(sizeof(*wl), &b43legacy_hw_ops);
+	if (!hw) {
+		b43legacyerr(NULL, "Could not allocate ieee80211 device\n");
+		goto out;
+	}
+
+	/* fill hw info */
+	hw->flags = IEEE80211_HW_HOST_GEN_BEACON_TEMPLATE |
+		    IEEE80211_HW_RX_INCLUDES_FCS;
+	hw->max_signal = 100;
+	hw->max_rssi = -110;
+	hw->max_noise = -110;
+	hw->queues = 1; /* FIXME: hardware has more queues */
+	SET_IEEE80211_DEV(hw, dev->dev);
+	if (is_valid_ether_addr(sprom->et1mac))
+		SET_IEEE80211_PERM_ADDR(hw, sprom->et1mac);
+	else
+		SET_IEEE80211_PERM_ADDR(hw, sprom->il0mac);
+
+	/* Get and initialize struct b43legacy_wl */
+	wl = hw_to_b43legacy_wl(hw);
+	memset(wl, 0, sizeof(*wl));
+	wl->hw = hw;
+	spin_lock_init(&wl->irq_lock);
+	spin_lock_init(&wl->leds_lock);
+	mutex_init(&wl->mutex);
+	INIT_LIST_HEAD(&wl->devlist);
+
+	ssb_set_devtypedata(dev, wl);
+	b43legacyinfo(wl, "Broadcom %04X WLAN found\n", dev->bus->chip_id);
+	err = 0;
+out:
+	return err;
+}
+
+static int b43legacy_probe(struct ssb_device *dev,
+			 const struct ssb_device_id *id)
+{
+	struct b43legacy_wl *wl;
+	int err;
+	int first = 0;
+
+	wl = ssb_get_devtypedata(dev);
+	if (!wl) {
+		/* Probing the first core - setup common struct b43legacy_wl */
+		first = 1;
+		err = b43legacy_wireless_init(dev);
+		if (err)
+			goto out;
+		wl = ssb_get_devtypedata(dev);
+		B43legacy_WARN_ON(!wl);
+	}
+	err = b43legacy_one_core_attach(dev, wl);
+	if (err)
+		goto err_wireless_exit;
+
+	if (first) {
+		err = ieee80211_register_hw(wl->hw);
+		if (err)
+			goto

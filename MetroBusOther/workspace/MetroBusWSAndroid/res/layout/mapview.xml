@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <!-- <LinearLayout
+       
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+        <Button
+            android:id="@+id/btnTraffic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/action_bar_background"
+            android:text="实时交通" >
+        </Button>
+         <Button
+            android:id="@+id/btnSatellite"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="卫星影像" >
+        </Button>
+        <Button
+            android:id="@+id/btnAnimationTo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Animation" >
+        </Button>
+        <Button
+            android:id="@+id/btnBusRoute"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="公交路线" >
+        </Button>
+        <Button
+            android:id="@+id/btnLBS"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="定位" >
+        </Button>
+    </LinearLayout> -->
+
+    <com.tencent.tencentmap.mapsdk.map.MapView
+        android:id="@+id/mapviewtraffic"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:focusableInTouchMode="true" />
+
+</LinearLayout>

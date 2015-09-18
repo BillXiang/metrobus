@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/talk_bg"
+    android:focusable="true"  
+    android:focusableInTouchMode="true"
+    android:paddingBottom="-50dp" >
+
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/sendLayout"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true">
+
+        <LinearLayout
+            android:id="@+id/talkContentHolder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+        </LinearLayout>
+    </ScrollView>
+
+    <RelativeLayout
+        android:id="@+id/sendLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="-10dp"
+        android:background="@drawable/new_write_bg"
+        android:scaleY="0.8" >
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/talkSendBtn" >
+            
+            <EditText
+                android:id="@+id/talkContentEdit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="-30dp"
+                android:layout_marginLeft="-25dp"
+                android:background="@drawable/v3_text_input_bg"
+                android:inputType="textMultiLine"
+                android:maxLines="3"
+                android:paddingLeft="-10dp"
+                android:scaleX="0.8" >
+	        </EditText>
+	        
+        </FrameLayout>
+
+        <ImageButton
+            android:id="@+id/talkSendBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@android:color/transparent"
+            android:clickable="false"
+            android:focusable="false"
+            android:scaleX="0.8"
+            android:layout_marginRight="-5dp"
+            android:src="@drawable/new_send_text_dispose" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

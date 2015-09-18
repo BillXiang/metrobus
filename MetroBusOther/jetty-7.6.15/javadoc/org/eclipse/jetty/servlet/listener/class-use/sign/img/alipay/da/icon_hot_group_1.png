@@ -1,0 +1,10 @@
+- [06/Aug/2013:16:40:05 +0800] "GET /HIS/OpClinic/OpView/OpPrescriptionView.js?_dc=1375778469520 HTTP/1.1" 200 8572
+169.254.223.78 - - [06/Aug/2013:16:40:05 +0800] "GET /HIS/getTotalExpByMneCode.do?_dc=1375778469527&page=1&start=0&limit=25 HTTP/1.1" 200 12
+169.254.223.78 - - [06/Aug/2013:16:40:05 +0800] "GET /HIS/OpClinic/OpView/HistoryPrescriptionGrid.js?_dc=1375778469520 HTTP/1.1" 200 6886
+169.254.223.78 - - [06/Aug/2013:16:40:05 +0800] "GET /HIS/OpClinic/OpView/ConsultingRoomView.js?_dc=1375778469520 HTTP/1.1" 200 43599
+169.254.223.78 - - [06/Aug/2013:16:40:05 +0800] "GET /HIS/system/getIcdsByMneCode.do?_dc=1375778469567&page=1&start=0&limit=25 HTTP/1.1" 200 12
+169.254.223.78 - - [06/Aug/2013:16:40:05 +0800] "GET /HIS/OpClinic/OpView/HistoryPrescriptionItemWindow.js?_dc=1375778469619 HTTP/1.1" 200 2134
+169.254.223.78 - - [06/Aug/2013:16:40:05 +0800] "GET /HIS/getUnSeenPrescriptionByStaffID.do?_dc=1375778469682&page=1&start=0&limit=25&sort=PrescriptionID&dir=DESC HTTP/1.1" 200 8555
+169.254.223.78 - - [06/Aug/2013:16:40:06 +0800] "GET /HIS/getAllDrugCostID.do?_dc=1375778469912 HTTP/1.1" 200 23
+169.254.223.78 - - [06/Aug/2013:16:40:06 +0800] "GET /HIS/getTotalExpByMneCode.do?_dc=1375778470003&page=1&start=0&limit=25 HTTP/1.1" 200 12
+169.254.223.78 -

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/bus_line_head"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TextView" />
+
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:orientation="vertical" >
+            <LinearLayout android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+                <!-- <ImageView 
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"/> -->
+                <TextView android:id="@+id/bus_line_start"
+	                android:layout_width="match_parent"
+	                android:layout_height="wrap_content"
+	                android:gravity="left"
+	                android:drawableLeft="@drawable/bullet_green"
+	                android:drawablePadding="0dp"
+	                android:text="起点"
+	                android:layout_weight="1" />
+            </LinearLayout>
+            
+            <LinearLayout android:id="@+id/bus_line_middle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                
+            </LinearLayout>
+            <LinearLayout android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+                <!-- <ImageView 
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"/> -->
+                <TextView android:id="@+id/bus_line_end"
+	                android:layout_width="match_parent"
+	                android:layout_height="wrap_content"
+	                android:gravity="left"
+	                android:drawableLeft="@drawable/bullet_red"
+	                android:drawablePadding="0dp"
+	                android:text="终点"
+	                android:layout_weight="1"/>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
